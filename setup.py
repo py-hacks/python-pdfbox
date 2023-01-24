@@ -7,10 +7,10 @@ from setuptools import find_packages
 from setuptools import setup
 
 NAME =               'python-pdfbox-v2'
-VERSION =            '2.0.27'
+VERSION =            '2.0.27.1d'
 AUTHOR =             'Lev E. Givon'
 AUTHOR_EMAIL =       'lev@columbia.edu'
-URL =                'https://github.com/lebedov/python-pdfbox/'
+URL =                'https://github.com/py-hacks/python-pdfbox'
 DESCRIPTION =        'Python interface to Apache PDFBox command-line tools.'
 with open('README.rst', 'r') as f:
     LONG_DESCRIPTION = f.read()
