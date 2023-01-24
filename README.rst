@@ -3,6 +3,15 @@
 python-pdfbox
 =============
 
+Note
+----
+This prject is a fork of python-pdfbox. After the update of pdfbox,
+the current version for apache-pdfbox 3.x has breaking changes.
+
+To make sure the the python-wrapper is still useable, this fork is in place.
+To use just replace the pip install python-pdfbox with pip install python-pdfbox-v2
+
+
 Package Description
 -------------------
 Provides a simple Python 3 interface to the 
