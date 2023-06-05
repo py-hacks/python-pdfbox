@@ -17,7 +17,6 @@ import jpype
 import jpype.imports
 import pkg_resources
 
-pdfbox_2_0_27_url = r'https://dlcdn.apache.org/pdfbox/2.0.27/pdfbox-app-2.0.27.jar'
 
 class _PDFBoxVersionsParser(html.parser.HTMLParser):
     """
@@ -78,45 +77,11 @@ class PDFBox(object):
                 raise RuntimeError('pdfbox not found')
             return pdfbox_path
 
-        # Use platform-specific cache directory:
-        a = appdirs.AppDirs('python-pdfbox')
-        cache_dir = pathlib.Path(a.user_cache_dir)
+        jar_path = os.path.dirname(os.path.abspath(__file__))
+        jar_file_path = os.path.join(jar_path, 'pdfbox-app-2.0.28.jar')
 
-        # Try to find pdfbox-app-*.jar file with most recent version in cache directory:
-        file_list = list(cache_dir.glob('pdfbox-app-*.jar'))
-        if file_list:
-            def f(s):
-                v = re.search('pdfbox-app-([\w\.\-]+)\.jar', s.name).group(1)
-                return pkg_resources.parse_version(v)
-            return sorted(file_list, key=f)[-1]
-        else:
-            # If no jar files are cached, find the latest version jar, retrieve it,
-            # cache it, and verify its checksum:
-            pdfbox_url = self._get_compatible_pdfbox_url()
-            sha512_url = pdfbox_url + '.sha512'
-            r = urllib.request.urlopen(pdfbox_url)
-            try:
-                data = r.read()
-            except:
-                raise RuntimeError('error retrieving %s' % pdfbox_url)
-            else:
-                if not os.path.exists(cache_dir.as_posix()):
-                    cache_dir.mkdir(parents=True)
-                pdfbox_path = cache_dir.joinpath(pathlib.Path(pdfbox_url).name)
-                with open(pdfbox_path.as_posix(), 'wb') as f:
-                    f.write(data)
+        return jar_file_path
 
-            r = urllib.request.urlopen(sha512_url)
-            encoding = r.headers.get_content_charset('utf-8')
-            try:
-                sha512 = r.read().decode(encoding).strip()
-            except:
-                raise RuntimeError('error retrieving sha512sum')
-            else:
-                if not self._verify_sha512(data, sha512):
-                    raise RuntimeError('failed to verify sha512sum')
-
-            return pdfbox_path
 
     def __init__(self):
         self.pdfbox_path = self._get_pdfbox_path()

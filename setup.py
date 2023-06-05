@@ -7,9 +7,9 @@ from setuptools import find_packages
 from setuptools import setup
 
 NAME =               'python-pdfbox-v2'
-VERSION =            '2.0.27.2'
-AUTHOR =             'Lev E. Givon'
-AUTHOR_EMAIL =       'lev@columbia.edu'
+VERSION =            '2.0.28.3'
+AUTHOR =             'Fakabbir Amin'
+AUTHOR_EMAIL =       'f4amin@gmail.com'
 URL =                'https://github.com/py-hacks/python-pdfbox'
 DESCRIPTION =        'Python interface to Apache PDFBox command-line tools.'
 with open('README.rst', 'r') as f:
@@ -42,5 +42,6 @@ if __name__ == "__main__":
         long_description = LONG_DESCRIPTION,
         url = URL,
         packages = find_packages(),
-	python_requires='>=3',
-        install_requires = ['appdirs', 'jpype1', 'setuptools'])
+        include_package_data=True,
+	    python_requires='>=3',
+        install_requires = ['jpype1', 'setuptools'])

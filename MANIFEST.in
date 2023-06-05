@@ -1,4 +1,5 @@
 recursive-include pdfbox *.py
+recursive-include pdfbox *.jar
 recursive-include tests *
 include *.rst
 include *.py
