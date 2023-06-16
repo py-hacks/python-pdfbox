@@ -4,36 +4,11 @@
 Python interface to Apache PDFBox.
 """
 
-import hashlib
-import html.parser
 import os
 import pathlib
-import re
-import shutil
-import urllib.request
-
-import appdirs
 import jpype
 import jpype.imports
-import pkg_resources
 
-
-class _PDFBoxVersionsParser(html.parser.HTMLParser):
-    """
-    Class for parsing versions available on PDFBox archive site.
-    """
-
-    def feed(self, data):
-        self.result = []
-        super(_PDFBoxVersionsParser, self).feed(data)
-
-    def handle_starttag(self, tag, attrs):
-        if tag == 'a':
-            for a in attrs:
-                if a[0] == 'href':
-                    s = a[1].strip('/')
-                    if re.search('\d+\.\d+\.\d+.*', s):
-                        self.result.append(s)
 
 class PDFBox(object):
     """
@@ -54,16 +29,6 @@ class PDFBox(object):
                    directJPEG=False)
         Extract all images from a PDF file.
     """
-
-    def _verify_sha512(self, data, digest):
-        """
-        Verify SHA512 checksum.
-        """
-
-        return hashlib.sha512(data).hexdigest() == digest
-
-    def _get_compatible_pdfbox_url(self):
-        return pdfbox_2_0_27_url
 
     def _get_pdfbox_path(self):
         """
